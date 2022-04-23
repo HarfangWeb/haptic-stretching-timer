@@ -115,20 +115,26 @@ class _MyHomePageState extends State<MyHomePage>
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    bool smallDevice = width <= 380;
     return Scaffold(
-      appBar: AppBar(
-        title: const Center(
-            child: Text(
-          'Stretching Timer',
-        )),
-      ),
+      appBar: smallDevice
+          ? null
+          : AppBar(
+              title: const Center(
+                  child: Text(
+                'Stretching Timer',
+              )),
+            ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: smallDevice
+              ? MainAxisAlignment.start
+              : MainAxisAlignment.spaceAround,
           children: [
             SizedBox(
-              width: 300,
-              height: 300,
+              width: 320,
+              height: 216,
               child: CircleAvatar(
                 backgroundColor: Colors.white10,
                 child: _isTimerRunning
