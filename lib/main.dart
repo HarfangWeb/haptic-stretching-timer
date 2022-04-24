@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:stretching_timer/widgets/countdown.dart';
+import 'package:stretching_timer/widgets/timer_picker/timer_picker.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +17,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Stretching Timer',
       theme: ThemeData.dark(),
-      home: const MyHomePage(),
+      debugShowCheckedModeBanner: false,
+      home: const SafeArea(
+        child: MyHomePage(),
+      ),
     );
   }
 }
@@ -133,36 +136,40 @@ class _MyHomePageState extends State<MyHomePage>
               : MainAxisAlignment.spaceAround,
           children: [
             SizedBox(
-              width: 320,
-              height: 216,
-              child: CircleAvatar(
-                backgroundColor: Colors.white10,
-                child: _isTimerRunning
-                    ? Stack(
-                        fit: StackFit.expand,
-                        children: [
-                          CircularProgressIndicator(
-                            value: progress,
-                            strokeWidth: 8,
-                          ),
-                          Countdown(
-                            seconds: _secondsCounter,
-                          ),
-                        ],
-                      )
-                    : CupertinoTimerPicker(
-                        mode: CupertinoTimerPickerMode.ms,
-                        initialTimerDuration: _timerDuration,
-                        onTimerDurationChanged: setTimerDuration,
-                      ),
+              width: smallDevice ? 130 : 250,
+              height: smallDevice ? 130 : 250,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 6),
+                child: CircleAvatar(
+                  backgroundColor: Colors.white10,
+                  child: _isTimerRunning
+                      ? Stack(
+                          fit: StackFit.expand,
+                          children: [
+                            CircularProgressIndicator(
+                              value: progress,
+                              strokeWidth: 8,
+                            ),
+                            Countdown(
+                              seconds: _secondsCounter,
+                            ),
+                          ],
+                        )
+                      : TimerPicker(
+                          onTimerDurationChanged: setTimerDuration,
+                          initialDuration: _timerDuration,
+                        ),
+                ),
               ),
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: smallDevice
+                  ? MainAxisAlignment.spaceBetween
+                  : MainAxisAlignment.spaceEvenly,
               children: [
                 IconButton(
                   onPressed: _isTimerRunning ? stopTimer : startTimer,
-                  iconSize: 100,
+                  iconSize: smallDevice ? 40 : 100,
                   icon: _isTimerRunning
                       ? const Icon(
                           Icons.stop_circle_outlined,
@@ -175,7 +182,7 @@ class _MyHomePageState extends State<MyHomePage>
                 ),
                 IconButton(
                   onPressed: _isTimerRunning ? pauseTimer : null,
-                  iconSize: 100,
+                  iconSize: smallDevice ? 40 : 100,
                   icon: _isTimerPaused
                       ? const Icon(
                           Icons.play_circle_outline,

@@ -1,0 +1,1 @@
+int kWatchWidth = 250;
