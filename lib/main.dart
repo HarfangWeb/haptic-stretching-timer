@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:stretching_timer/responsive/breakpoints.dart';
 import 'package:stretching_timer/widgets/countdown.dart';
 import 'package:stretching_timer/widgets/timer_picker/timer_picker.dart';
 
@@ -119,7 +120,7 @@ class _MyHomePageState extends State<MyHomePage>
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    bool smallDevice = width <= 380;
+    bool smallDevice = width <= kWatchWidth;
     return Scaffold(
       appBar: smallDevice
           ? null

@@ -1,1 +1,1 @@
-int kWatchWidth = 250;
+int kWatchWidth = 200;
