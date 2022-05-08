@@ -84,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage>
 
           if (_secondsCounter == 0) {
             //haptic feedback
-            HapticFeedback.lightImpact();
+            HapticFeedback.vibrate();
 
             _secondsCounter = _timerDuration.inSeconds;
             _circularProgressController.reverse(from: 1);
