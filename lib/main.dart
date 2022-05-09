@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:stretching_timer/responsive/breakpoints.dart';
 import 'package:stretching_timer/widgets/countdown.dart';
 import 'package:stretching_timer/widgets/timer_picker/timer_picker.dart';
+import 'package:vibration/vibration.dart';
 
 void main() {
   runApp(const MyApp());
@@ -84,7 +85,8 @@ class _MyHomePageState extends State<MyHomePage>
 
           if (_secondsCounter == 0) {
             //haptic feedback
-            HapticFeedback.vibrate();
+            //HapticFeedback.vibrate();
+            Vibration.vibrate(duration: 500, intensities: [200]);
 
             _secondsCounter = _timerDuration.inSeconds;
             _circularProgressController.reverse(from: 1);
